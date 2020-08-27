@@ -37,7 +37,7 @@ export default class Login extends Component {
     };
 
     axios
-      .post("http://localhost:5000/auth", user)
+      .post("http://localhost:5000/user", user)
       .then((res) => {
         localStorage.setItem("tokenAircnc", res.data.token);
         console.log(res.data);
@@ -95,13 +95,13 @@ export default class Login extends Component {
                       className="btn btn-lg btn-dark btn-block text-uppercase"
                       type="submit"
                     >
-                      Acessar
+                      Registrar
                     </button>
                   </form>
                   <p className="mt-3">
-                    Não possui conta?
+                    Já possui conta?
                     <span>
-                      <Link to="/register"> Registrar-se</Link>
+                      <Link to="/login"> Acessar</Link>
                     </span>
                   </p>
                 </div>
