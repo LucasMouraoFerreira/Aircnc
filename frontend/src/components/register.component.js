@@ -40,7 +40,7 @@ export default class Login extends Component {
       .post("http://localhost:5000/user", user)
       .then((res) => {
         localStorage.setItem("tokenAircnc", res.data.token);
-        console.log(res.data);
+        window.location = "/";
       })
       .catch((error) => {
         alert(error);
