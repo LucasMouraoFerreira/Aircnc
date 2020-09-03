@@ -5,21 +5,19 @@ import { faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Place = (props) => (
-  <div class="card m-2">
-    <img class="card-img-top" src={props.place.image} alt="Card " />
-    <div class="card-body">
-      <h5 class="card-title text-center font-weight-bold">
+  <div className="card m-2">
+    <img className="card-img-top" src={props.place.image} alt="Card" />
+    <div className="card-body">
+      <h5 className="card-title text-center font-weight-bold">
         {props.place.name}
       </h5>
-      <h5 class="card-text font-weight-bold text-success">
-        R$ {props.place.price}
-      </h5>
-      <p class="card-text text-justify">{props.place.description}</p>
+      <h5 className="card-text font-weight-bold">R$ {props.place.price}</h5>
+      <p className="card-text text-justify">{props.place.description}</p>
     </div>
-    <div class="card-footer text-center">
+    <div className="card-footer text-center">
       <Link
-        class="btn btn-lg btn-success font-weight-bold"
-        to={"/" + props.key}
+        className="btn btn-lg btn-secondary font-weight-bold"
+        to={"/places/" + props.place._id}
       >
         Detalhes
       </Link>
@@ -34,15 +32,16 @@ export default class PlaceList extends Component {
     this.state = {
       priceFilter: 100,
       locationFilter: "Belo Horizonte",
-      nameFilter: null,
+      nameFilter: "",
       places: [],
     };
   }
 
   componentDidMount() {
     axios
-      .get("http://localhost:5000/places/")
+      .get("http://localhost:5000/place/")
       .then((response) => {
+        console.log(response);
         this.setState({ places: response.data });
       })
       .catch((error) => {
@@ -61,50 +60,74 @@ export default class PlaceList extends Component {
           place.location === this.state.locationFilter
       )
       .map((place) => {
-        return <Place place={place} key={place._id} />;
+        return <Place place={place} />;
       });
   }
 
   render() {
     return (
-      <div>
+      <div className="container">
         <div className="text-center inline">
-          Filtros
+          <br />
           <FontAwesomeIcon icon={faFilter} size="2x" />
         </div>
-        <div class="form-inline">
-          <input
-            type="text"
-            class="form-control mb-2 mr-sm-2"
-            placeholder="Nome"
-            onChange={(e) => {
-              this.setState({ nameFilter: e.target.value });
-            }}
-            value={this.state.nameFilter}
-          />
-          <input
-            type="text"
-            class="form-control mb-2 mr-sm-2"
-            placeholder="Preço máximo"
-            onChange={(e) => {
-              this.setState({ priceFilter: e.target.value });
-            }}
-            value={this.state.priceFilter}
-          />
-          <select
-            class="custom-select mb-2 mr-sm-2"
-            onChange={(e) => {
-              this.setState({ locationFilter: e.target.value });
-            }}
-            value={this.state.locationFilter}
-          >
-            <option value="Belo Horizonte">Belo Horizonte</option>
-            <option value="São Paulo">São Paulo</option>
-            <option value="Rio de Janeiro">Rio de Janeiro</option>
-          </select>
+        <br />
+
+        <div className="text-center">
+          <div className="form-inline justify-content-center">
+            <div class="input-group mb-2 mr-sm-2">
+              <div class="input-group-prepend">
+                <span class="input-group-text font-weight-bold">Nome</span>
+              </div>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Nome"
+                onChange={(e) => {
+                  this.setState({ nameFilter: e.target.value });
+                }}
+                value={this.state.nameFilter}
+                id="nome-id"
+              />
+            </div>
+            <div class="input-group mb-2 mr-sm-2">
+              <div class="input-group-prepend">
+                <span class="input-group-text font-weight-bold">
+                  Preço Máximo (R$)
+                </span>
+              </div>
+              <input
+                type="text"
+                class="form-control"
+                onChange={(e) => {
+                  this.setState({ priceFilter: e.target.value });
+                }}
+                value={this.state.priceFilter}
+              />
+            </div>
+            <div class="input-group mb-2 mr-sm-2">
+              <div class="input-group-prepend">
+                <span class="input-group-text font-weight-bold">
+                  Localização
+                </span>
+              </div>
+              <select
+                className="custom-select"
+                onChange={(e) => {
+                  this.setState({ locationFilter: e.target.value });
+                }}
+                value={this.state.locationFilter}
+              >
+                <option value="Belo Horizonte">Belo Horizonte</option>
+                <option value="São Paulo">São Paulo</option>
+                <option value="Rio de Janeiro">Rio de Janeiro</option>
+              </select>
+            </div>
+          </div>
         </div>
+
         <div className="row">
-          <div className="class-deck col-sm-12 col-md-6 col-lg-3">
+          <div className="class-deck col-sm-12 col-md-6 col-lg-4">
             {this.placeList()}
           </div>
         </div>

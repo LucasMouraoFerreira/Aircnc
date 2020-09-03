@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from "./components/login.component";
 import Register from "./components/register.component";
 import Navbar from "./components/navbar.component";
+import Home from "./components/place-list.component";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         </Route>
         <Route path="/">
           <Navbar />
+          <Home />
         </Route>
       </Switch>
     </Router>
