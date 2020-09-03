@@ -6,5 +6,4 @@ class Rent(db.Model):
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 	place_id = db.Column(db.Integer, db.ForeignKey('place.id'))
 
-	client = db.relationship('User', foreign_keys=user_id)
 	place = db.relationship('User', foreign_keys=place_id)
