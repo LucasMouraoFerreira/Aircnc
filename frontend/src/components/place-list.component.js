@@ -5,22 +5,24 @@ import { faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Place = (props) => (
-  <div className="card m-2">
-    <img className="card-img-top" src={props.place.image} alt="Card" />
-    <div className="card-body">
-      <h5 className="card-title text-center font-weight-bold">
-        {props.place.name}
-      </h5>
-      <h5 className="card-text font-weight-bold">R$ {props.place.price}</h5>
-      <p className="card-text text-justify">{props.place.description}</p>
-    </div>
-    <div className="card-footer text-center">
-      <Link
-        className="btn btn-lg btn-secondary font-weight-bold"
-        to={"/places/" + props.place._id}
-      >
-        Detalhes
-      </Link>
+  <div className="col-sm-12 col-md-6 col-lg-4">
+    <div className="card m-2">
+      <img className="card-img-top" src={props.place.image} alt="Card" />
+      <div className="card-body">
+        <h5 className="card-title text-center font-weight-bold">
+          {props.place.name}
+        </h5>
+        <h5 className="card-text font-weight-bold">R$ {props.place.price}</h5>
+        <p className="card-text text-justify">{props.place.description}</p>
+      </div>
+      <div className="card-footer text-center">
+        <Link
+          className="btn btn-lg btn-dark font-weight-bold"
+          to={"/places/" + props.place._id}
+        >
+          Detalhes
+        </Link>
+      </div>
     </div>
   </div>
 );
@@ -60,7 +62,7 @@ export default class PlaceList extends Component {
           place.location === this.state.locationFilter
       )
       .map((place) => {
-        return <Place place={place} />;
+        return <Place place={place} key={place._id} />;
       });
   }
 
@@ -75,9 +77,9 @@ export default class PlaceList extends Component {
 
         <div className="text-center">
           <div className="form-inline justify-content-center">
-            <div class="input-group mb-2 mr-sm-2">
-              <div class="input-group-prepend">
-                <span class="input-group-text font-weight-bold">Nome</span>
+            <div className="input-group mb-2 mr-sm-2">
+              <div className="input-group-prepend">
+                <span className="input-group-text font-weight-bold">Nome</span>
               </div>
               <input
                 type="text"
@@ -90,24 +92,24 @@ export default class PlaceList extends Component {
                 id="nome-id"
               />
             </div>
-            <div class="input-group mb-2 mr-sm-2">
-              <div class="input-group-prepend">
-                <span class="input-group-text font-weight-bold">
+            <div className="input-group mb-2 mr-sm-2">
+              <div className="input-group-prepend">
+                <span className="input-group-text font-weight-bold">
                   Preço Máximo (R$)
                 </span>
               </div>
               <input
                 type="text"
-                class="form-control"
+                className="form-control"
                 onChange={(e) => {
                   this.setState({ priceFilter: e.target.value });
                 }}
                 value={this.state.priceFilter}
               />
             </div>
-            <div class="input-group mb-2 mr-sm-2">
-              <div class="input-group-prepend">
-                <span class="input-group-text font-weight-bold">
+            <div className="input-group mb-2 mr-sm-2">
+              <div className="input-group-prepend">
+                <span className="input-group-text font-weight-bold">
                   Localização
                 </span>
               </div>
@@ -126,11 +128,7 @@ export default class PlaceList extends Component {
           </div>
         </div>
 
-        <div className="row">
-          <div className="class-deck col-sm-12 col-md-6 col-lg-4">
-            {this.placeList()}
-          </div>
-        </div>
+        <div className="row">{this.placeList()}</div>
       </div>
     );
   }
