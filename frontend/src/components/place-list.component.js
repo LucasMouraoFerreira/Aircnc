@@ -18,7 +18,7 @@ const Place = (props) => (
       <div className="card-footer text-center">
         <Link
           className="btn btn-lg btn-dark font-weight-bold"
-          to={"/places/" + props.place._id}
+          to={"/rent/" + props.place._id}
         >
           Detalhes
         </Link>
@@ -41,7 +41,7 @@ export default class PlaceList extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:5000/place/")
+      .get("http://localhost:5000/places/")
       .then((response) => {
         console.log(response);
         this.setState({ places: response.data });
