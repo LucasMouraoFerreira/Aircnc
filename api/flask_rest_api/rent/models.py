@@ -9,3 +9,6 @@ class Rent(db.Model):
 
 	def __repr__(self):
         return '<Rent %s>' % self.Rent.id
+
+rent_schema = RentSchema()
+rents_schema = RentSchema(many=True)
