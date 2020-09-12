@@ -37,7 +37,7 @@ export default class Login extends Component {
     };
 
     axios
-      .post("http://localhost:5000/user", user)
+      .post("http://localhost:5000/users", user)
       .then((res) => {
         localStorage.setItem("tokenAircnc", res.data.token);
         window.location = "/";

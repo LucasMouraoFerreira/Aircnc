@@ -8,6 +8,7 @@ import Register from "./components/register.component";
 import Navbar from "./components/navbar.component";
 import Home from "./components/place-list.component";
 import PlaceRent from "./components/rent.component";
+import User from "./components/user.component";
 
 function App() {
   return (
@@ -37,6 +38,16 @@ function App() {
           <div>
             <Navbar />
             <Home {...props} />
+          </div>
+        )}
+      />
+      <Route
+        exact
+        path="/user"
+        render={(props) => (
+          <div>
+            <Navbar />
+            <User {...props} />
           </div>
         )}
       />
