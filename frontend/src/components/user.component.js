@@ -243,7 +243,7 @@ export default class User extends Component {
                       this.setState({
                         updatedPlace: {
                           ...this.state.updatedPlace,
-                          image: e.target.value,
+                          image: e.target.files[0],
                         },
                       })
                     }
@@ -284,7 +284,11 @@ export default class User extends Component {
     });
 
     const formData = new FormData();
-    formData.append("image", this.state.newPlace.image);
+    formData.append(
+      "image",
+      this.state.newPlace.image,
+      `image_${this.state.newPlace.name}`
+    );
     formData.append("name", this.state.newPlace.name);
     formData.append("description", this.state.newPlace.description);
     formData.append("price", this.state.newPlace.price);
@@ -365,7 +369,11 @@ export default class User extends Component {
     });
 
     const formData = new FormData();
-    formData.append("image", this.state.updatedPlace.image);
+    formData.append(
+      "image",
+      this.state.updatedPlace.image,
+      `image_${this.state.updatedPlace.name}`
+    );
     formData.append("name", this.state.updatedPlace.name);
     formData.append("description", this.state.updatedPlace.description);
     formData.append("price", this.state.updatedPlace.price);
@@ -522,7 +530,7 @@ export default class User extends Component {
             <Modal.Title>Incluir Lugar</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <form className="form-signin" onSubmit={this.onEditPlace}>
+            <form className="form-signin" onSubmit={this.onSubmitNewPlace}>
               <div className="form-label-group">
                 <label>Nome</label>
                 <input
@@ -689,7 +697,7 @@ export default class User extends Component {
                     this.setState({
                       newPlace: {
                         ...this.state.newPlace,
-                        image: e.target.value,
+                        image: e.target.files[0],
                       },
                     })
                   }
