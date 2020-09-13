@@ -19,10 +19,22 @@ export default class User extends Component {
       newPassword: "",
       places: [],
       email: "",
-      newPlace: {},
+      newPlace: {
+        image: null,
+        name: "",
+        description: "",
+        price: 0,
+        type: "Casa",
+        address: "",
+        location: "Belo Horizonte",
+        maxNumberOfGuests: 1,
+        numberOfRooms: 1,
+        numberOfBathrooms: 1,
+      },
       updatedPlace: {},
       modalShow: {},
       modalPassword: false,
+      modalNewPlace: false,
     };
 
     this.Place = (props) => {
@@ -45,7 +57,7 @@ export default class User extends Component {
               <button
                 className="btn btn-danger font-weight-bold mr-2"
                 onClick={() => {
-                  props.onDeletePlace(props.place._id);
+                  this.onDeletePlace(props.place._id);
                 }}
               >
                 Excluir
@@ -53,10 +65,12 @@ export default class User extends Component {
               <button
                 className="btn btn-primary font-weight-bold"
                 onClick={() => {
-                  this.setState({ updatedPlace: props.place });
+                  this.setState({
+                    updatedPlace: { ...props.place, image: null },
+                  });
                   this.setState({
                     modalShow: Object.assign(this.state.modalShow, {
-                      [`modal_${props.place._id}`]: false,
+                      [`modal_${props.place._id}`]: true,
                     }),
                   });
                 }}
@@ -76,10 +90,172 @@ export default class User extends Component {
             }
           >
             <Modal.Header closeButton>
-              <Modal.Title>Modal heading</Modal.Title>
+              <Modal.Title>Atualizar Lugar</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              Woohoo, you're reading this text in a modal!
+              <form className="form-signin" onSubmit={this.onEditPlace}>
+                <div className="form-label-group">
+                  <label>Nome</label>
+                  <input
+                    className="form-control"
+                    placeholder="Nome"
+                    required
+                    onChange={(e) =>
+                      this.setState({
+                        updatedPlace: {
+                          ...this.state.updatedPlace,
+                          name: e.target.value,
+                        },
+                      })
+                    }
+                    value={this.state.updatedPlace.name}
+                  />
+                </div>
+                <div className="form-label-group">
+                  <label>Endereço</label>
+                  <input
+                    className="form-control"
+                    placeholder="Endereço"
+                    required
+                    onChange={(e) =>
+                      this.setState({
+                        updatedPlace: {
+                          ...this.state.updatedPlace,
+                          address: e.target.value,
+                        },
+                      })
+                    }
+                    value={this.state.updatedPlace.address}
+                  />
+                </div>
+                <div className="form-label-group">
+                  <label>Descrição</label>
+                  <input
+                    className="form-control"
+                    placeholder="Descrição"
+                    required
+                    onChange={(e) =>
+                      this.setState({
+                        updatedPlace: {
+                          ...this.state.updatedPlace,
+                          description: e.target.value,
+                        },
+                      })
+                    }
+                    value={this.state.updatedPlace.description}
+                  />
+                </div>
+                <div className="form-label-group">
+                  <label>Preço</label>
+                  <input
+                    className="form-control"
+                    placeholder="Descrição"
+                    type="number"
+                    required
+                    onChange={(e) =>
+                      this.setState({
+                        updatedPlace: {
+                          ...this.state.updatedPlace,
+                          price: e.target.value,
+                        },
+                      })
+                    }
+                    value={this.state.updatedPlace.price}
+                  />
+                </div>
+                <div className="form-label-group">
+                  <label>Tipo</label>
+                  <input
+                    className="form-control"
+                    placeholder="Tipo"
+                    required
+                    onChange={(e) =>
+                      this.setState({
+                        updatedPlace: {
+                          ...this.state.updatedPlace,
+                          type: e.target.value,
+                        },
+                      })
+                    }
+                    value={this.state.updatedPlace.type}
+                  />
+                </div>
+                <div className="form-label-group">
+                  <label>Número máximo de hospedados</label>
+                  <input
+                    className="form-control"
+                    placeholder="Número máximo de hospedados"
+                    type="number"
+                    required
+                    onChange={(e) =>
+                      this.setState({
+                        updatedPlace: {
+                          ...this.state.updatedPlace,
+                          maxNumberOfGuests: e.target.value,
+                        },
+                      })
+                    }
+                    value={this.state.updatedPlace.maxNumberOfGuests}
+                  />
+                </div>
+                <div className="form-label-group">
+                  <label>Número de Quartos</label>
+                  <input
+                    className="form-control"
+                    placeholder="Número de Quartos"
+                    type="number"
+                    required
+                    onChange={(e) =>
+                      this.setState({
+                        updatedPlace: {
+                          ...this.state.updatedPlace,
+                          numberOfRooms: e.target.value,
+                        },
+                      })
+                    }
+                    value={this.state.updatedPlace.numberOfRooms}
+                  />
+                </div>
+                <div className="form-label-group">
+                  <label>Número de Banheiros</label>
+                  <input
+                    className="form-control"
+                    placeholder="Número de Banheiros"
+                    type="number"
+                    required
+                    onChange={(e) =>
+                      this.setState({
+                        updatedPlace: {
+                          ...this.state.updatedPlace,
+                          numberOfBathrooms: e.target.value,
+                        },
+                      })
+                    }
+                    value={this.state.updatedPlace.numberOfBathrooms}
+                  />
+                </div>
+                <div className="form-label-group">
+                  <label>Imagem</label>
+                  <input
+                    type="file"
+                    className="form-control-file"
+                    onChange={(e) =>
+                      this.setState({
+                        updatedPlace: {
+                          ...this.state.updatedPlace,
+                          image: e.target.value,
+                        },
+                      })
+                    }
+                  />
+                </div>
+                <button
+                  className="btn btn-lg btn-primary btn-block text-uppercase"
+                  type="submit"
+                >
+                  Alterar
+                </button>
+              </form>
             </Modal.Body>
             <Modal.Footer>
               <Button
@@ -92,19 +268,7 @@ export default class User extends Component {
                   })
                 }
               >
-                Close
-              </Button>
-              <Button
-                variant="primary"
-                onClick={() =>
-                  this.setState({
-                    modalShow: Object.assign(this.state.modalShow, {
-                      [`modal_${props.place._id}`]: false,
-                    }),
-                  })
-                }
-              >
-                Save Changes
+                Cancelar
               </Button>
             </Modal.Footer>
           </Modal>
@@ -114,11 +278,29 @@ export default class User extends Component {
   }
 
   onSubmitNewPlace(e) {
-    // tratar formData
     e.preventDefault();
+    this.setState({
+      modalNewPlace: false,
+    });
+
+    const formData = new FormData();
+    formData.append("image", this.state.newPlace.image);
+    formData.append("name", this.state.newPlace.name);
+    formData.append("description", this.state.newPlace.description);
+    formData.append("price", this.state.newPlace.price);
+    formData.append("type", this.state.newPlace.type);
+    formData.append("address", this.state.newPlace.address);
+    formData.append("maxNumberOfGuests", this.state.newPlace.maxNumberOfGuests);
+    formData.append("numberOfRooms", this.state.newPlace.numberOfRooms);
+    formData.append("numberOfBathrooms", this.state.newPlace.numberOfBathrooms);
+    formData.append("location", this.state.newPlace.location);
 
     axios
-      .post("http://localhost:5000/places", this.state.newPlace)
+      .post("http://localhost:5000/places", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
       .then((res) => {
         this.setState({ places: [res.data, ...this.state.places] });
         this.setState({
@@ -153,10 +335,14 @@ export default class User extends Component {
   }
 
   onDeleteUser() {
-    axios.delete("http://localhost:5000/users").then((res) => {
-      localStorage.removeItem("tokenAircnc");
-      window.location = "/login";
-    });
+    axios
+      .delete("http://localhost:5000/users")
+      .then((res) => {
+        localStorage.removeItem("tokenAircnc");
+        console.log("Redirect");
+        window.location = "/login";
+      })
+      .catch((error) => alert(error));
   }
 
   onChangePassword(e) {
@@ -170,15 +356,52 @@ export default class User extends Component {
       });
   }
 
-  onEditPlace(id) {
-    // tratar formData
+  onEditPlace(e) {
+    e.preventDefault();
+    this.setState({
+      modalShow: Object.assign(this.state.modalShow, {
+        [`modal_${this.state.updatedPlace._id}`]: false,
+      }),
+    });
+
+    const formData = new FormData();
+    formData.append("image", this.state.updatedPlace.image);
+    formData.append("name", this.state.updatedPlace.name);
+    formData.append("description", this.state.updatedPlace.description);
+    formData.append("price", this.state.updatedPlace.price);
+    formData.append("type", this.state.updatedPlace.type);
+    formData.append("address", this.state.updatedPlace.address);
+    formData.append(
+      "maxNumberOfGuests",
+      this.state.updatedPlace.maxNumberOfGuests
+    );
+    formData.append("numberOfRooms", this.state.updatedPlace.numberOfRooms);
+    formData.append(
+      "numberOfBathrooms",
+      this.state.updatedPlace.numberOfBathrooms
+    );
+
     axios
-      .put("http://localhost:5000/places/" + id, this.state.updatedPlace)
+      .put(
+        "http://localhost:5000/places/" + this.state.updatedPlace._id,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
       .then((res) => {
         this.setState({
-          places: [...this.state.places.filter((x) => x._id !== id), res.data],
+          places: [
+            ...this.state.places.filter(
+              (x) => x._id !== this.state.updatedPlace._id
+            ),
+            res.data.place,
+          ],
         });
-      });
+      })
+      .catch((error) => alert(error));
   }
 
   componentDidMount() {
@@ -215,6 +438,12 @@ export default class User extends Component {
       <div className="container mt-4">
         <div className="row">
           <div className="col-9">
+            <button
+              className="btn btn-primary font-weight-bold mb-2"
+              onClick={() => this.setState({ modalNewPlace: true })}
+            >
+              Incluir Novo Lugar
+            </button>
             <div className="row">{this.placeList()}</div>
           </div>
           <div className="col-3">
@@ -247,7 +476,7 @@ export default class User extends Component {
           onHide={() => this.setState({ modalPassword: false })}
         >
           <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title>Alterar Senha</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <form className="form-signin" onSubmit={this.onChangePassword}>
@@ -256,7 +485,7 @@ export default class User extends Component {
                   type="password"
                   name="password"
                   className="form-control"
-                  placeholder="Senha"
+                  placeholder="Nova Senha"
                   required
                   onChange={(e) =>
                     this.setState({ newPassword: e.target.value })
@@ -276,6 +505,212 @@ export default class User extends Component {
             <Button
               variant="secondary"
               onClick={() => this.setState({ modalPassword: false })}
+            >
+              Cancelar
+            </Button>
+          </Modal.Footer>
+        </Modal>
+        <Modal
+          show={this.state.modalNewPlace}
+          onHide={() =>
+            this.setState({
+              modalNewPlace: false,
+            })
+          }
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Incluir Lugar</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <form className="form-signin" onSubmit={this.onEditPlace}>
+              <div className="form-label-group">
+                <label>Nome</label>
+                <input
+                  className="form-control"
+                  placeholder="Nome"
+                  required
+                  onChange={(e) =>
+                    this.setState({
+                      newPlace: {
+                        ...this.state.newPlace,
+                        name: e.target.value,
+                      },
+                    })
+                  }
+                  value={this.state.newPlace.name}
+                />
+              </div>
+              <div className="form-label-group">
+                <label>Endereço</label>
+                <input
+                  className="form-control"
+                  placeholder="Endereço"
+                  required
+                  onChange={(e) =>
+                    this.setState({
+                      newPlace: {
+                        ...this.state.newPlace,
+                        address: e.target.value,
+                      },
+                    })
+                  }
+                  value={this.state.newPlace.address}
+                />
+              </div>
+              <div className="form-label-group">
+                <label>Localização</label>
+                <input
+                  className="form-control"
+                  placeholder="Localização"
+                  required
+                  onChange={(e) =>
+                    this.setState({
+                      newPlace: {
+                        ...this.state.newPlace,
+                        location: e.target.value,
+                      },
+                    })
+                  }
+                  value={this.state.newPlace.location}
+                />
+              </div>
+              <div className="form-label-group">
+                <label>Descrição</label>
+                <input
+                  className="form-control"
+                  placeholder="Descrição"
+                  required
+                  onChange={(e) =>
+                    this.setState({
+                      newPlace: {
+                        ...this.state.newPlace,
+                        description: e.target.value,
+                      },
+                    })
+                  }
+                  value={this.state.newPlace.description}
+                />
+              </div>
+              <div className="form-label-group">
+                <label>Preço</label>
+                <input
+                  className="form-control"
+                  placeholder="Descrição"
+                  type="number"
+                  required
+                  onChange={(e) =>
+                    this.setState({
+                      newPlace: {
+                        ...this.state.newPlace,
+                        price: e.target.value,
+                      },
+                    })
+                  }
+                  value={this.state.newPlace.price}
+                />
+              </div>
+              <div className="form-label-group">
+                <label>Tipo</label>
+                <input
+                  className="form-control"
+                  placeholder="Tipo"
+                  required
+                  onChange={(e) =>
+                    this.setState({
+                      newPlace: {
+                        ...this.state.newPlace,
+                        type: e.target.value,
+                      },
+                    })
+                  }
+                  value={this.state.newPlace.type}
+                />
+              </div>
+              <div className="form-label-group">
+                <label>Número máximo de hospedados</label>
+                <input
+                  className="form-control"
+                  placeholder="Número máximo de hospedados"
+                  type="number"
+                  required
+                  onChange={(e) =>
+                    this.setState({
+                      newPlace: {
+                        ...this.state.newPlace,
+                        maxNumberOfGuests: e.target.value,
+                      },
+                    })
+                  }
+                  value={this.state.newPlace.maxNumberOfGuests}
+                />
+              </div>
+              <div className="form-label-group">
+                <label>Número de Quartos</label>
+                <input
+                  className="form-control"
+                  placeholder="Número de Quartos"
+                  type="number"
+                  required
+                  onChange={(e) =>
+                    this.setState({
+                      newPlace: {
+                        ...this.state.newPlace,
+                        numberOfRooms: e.target.value,
+                      },
+                    })
+                  }
+                  value={this.state.newPlace.numberOfRooms}
+                />
+              </div>
+              <div className="form-label-group">
+                <label>Número de Banheiros</label>
+                <input
+                  className="form-control"
+                  placeholder="Número de Banheiros"
+                  type="number"
+                  required
+                  onChange={(e) =>
+                    this.setState({
+                      newPlace: {
+                        ...this.state.newPlace,
+                        numberOfBathrooms: e.target.value,
+                      },
+                    })
+                  }
+                  value={this.state.newPlace.numberOfBathrooms}
+                />
+              </div>
+              <div className="form-label-group">
+                <label>Imagem</label>
+                <input
+                  type="file"
+                  className="form-control-file"
+                  onChange={(e) =>
+                    this.setState({
+                      newPlace: {
+                        ...this.state.newPlace,
+                        image: e.target.value,
+                      },
+                    })
+                  }
+                />
+              </div>
+              <button
+                className="btn btn-lg btn-primary btn-block text-uppercase"
+                type="submit"
+              >
+                Incluir
+              </button>
+            </form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="secondary"
+              onClick={() =>
+                this.setState({
+                  modalNewPlace: false,
+                })
+              }
             >
               Cancelar
             </Button>

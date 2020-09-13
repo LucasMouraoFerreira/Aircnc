@@ -85,7 +85,7 @@ export default class PlaceRent extends Component {
       <div className="container mt-4">
         <div className="row">
           <div className="col-8">
-            <div className="card">
+            <div className="card mb-4">
               <img
                 className="card-img-top"
                 src={this.state.place.image}
