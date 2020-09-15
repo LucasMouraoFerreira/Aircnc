@@ -14,5 +14,9 @@ class RentSchema(ma.Schema):
     class Meta:
         fields = ("id", "user_id", "place_id")
 
+class RentSchema(ma.Schema):
+    class Meta:
+        fields = ("id", "user_id", "place_id")
+
 rent_schema = RentSchema()
 rents_schema = RentSchema(many=True)
