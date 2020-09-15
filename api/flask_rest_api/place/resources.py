@@ -8,7 +8,7 @@ class PlaceListResource(Resource):
         places = Place.query.all()
         return places_schema.dump(places)
 
-    def place(self):
+    def post(self):
         new_place = Place(
             title=request.json['title'],
             address=request.json['address'],
@@ -20,11 +20,20 @@ class PlaceListResource(Resource):
 
 
 class PlaceResource(Resource):
+	
+
     def get(self, post_id):
         place = Place.query.get_or_404(place_id)
-        return post_schema.dump(post)
+        return place_schema.dump(place)
 
-    def patch(self, post_id):
+    def put(self, post_id):
+    	place = Place.query.get_or_404(place_id)
+    	place.title = request.json['title']
+    	place.address = request.json['address']
+    	place.price = request.json['price']
+
+
+    def patch(self, place_id):
         place = Place.query.get_or_404(place_id)
 
         if 'title' in request.json:
@@ -32,11 +41,12 @@ class PlaceResource(Resource):
         if 'address' in request.json:
             place.address = request.json['address']
         if 'price' in request.json['price']
+        	place.price = request.json['price']
 
         db.session.commit()
         return place_schema.dump(place)
 
-    def delete(self, post_id):
+    def delete(self, place_id):
         place = Place.query.get_or_404(place_id)
         db.session.delete(place)
         db.session.commit()
