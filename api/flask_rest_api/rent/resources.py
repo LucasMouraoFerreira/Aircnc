@@ -18,7 +18,7 @@ class RentListResource(Resource):
         return rent_schema.dump(new_rent)
 
 class RentResource(Resource):
-	def get(self, rent_id):
+    def get(self, rent_id):
         rent = Rent.query.get_or_404(rent_id)
         return rent_schema.dump(rent)
 

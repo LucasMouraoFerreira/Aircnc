@@ -19,5 +19,7 @@ Migrate(app,db, compare_type = True)
 #############################################################################################
 
 from flask_rest_api.post.routes import initialize_routes
+from flask_rest_api.rent.routes import initialize_rent_route
 
 initialize_routes(api)
+initialize_rent_route(api)
