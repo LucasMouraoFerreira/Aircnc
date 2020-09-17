@@ -4,6 +4,9 @@ from flask_marshmallow import Marshmallow
 from flask_restful import Api, Resource
 from flask_migrate import Migrate
 from flask_cors import CORS
+from flask_jwt import JWT
+from flask_rest_api.authentication.functions import authenticate, identity
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'w8oyUPlywjAAN51OXBdfJUZ8icsRCCP7'
@@ -14,6 +17,8 @@ db = SQLAlchemy(app)
 ma = Marshmallow(app)
 api = Api(app)
 Migrate(app,db, compare_type = True)
+
+#jwt = JWT(app, authenticate, identity)
 
 
 #############################################################################################
