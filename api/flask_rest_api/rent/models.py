@@ -1,22 +1,20 @@
 from flask_rest_api import db, ma
 
 class Rent(db.Model):
-    __tablename__:"rents"
+	__tablename__:"rents"
 
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    place_id = db.Column(db.Integer, db.ForeignKey('place.id'))
+	id = db.Column(db.Integer, primary_key=True)
+	checkinDate=db.Column(db.String(10))
+	checkoutDate=db.Column(db.String(10))
+	finalPrice=db.Column(db.Float) 
 
-def __repr__(self):
-    return '<Rent %s>' % self.Rent.id
-
-class RentSchema(ma.Schema):
-    class Meta:
-        fields = ("id", "user_id", "place_id")
+	def __repr__(self):
+        return '<Rent %s>' % self.Rent.id
 
 class RentSchema(ma.Schema):
     class Meta:
-        fields = ("id", "user_id", "place_id")
+        fields = ("id", "checkinDate", "checkoutDate", "finalPrice")
+
 
 rent_schema = RentSchema()
 rents_schema = RentSchema(many=True)
