@@ -10,9 +10,14 @@ class PlaceListResource(Resource):
 
     def post(self):
         new_place = Place(
-            title=request.json['title'],
-            address=request.json['address'],
-            price=request.json['price']
+            name=request.json['name'],
+            location=request.json['location'],
+            price=request.json['price'],
+            type=request.json['type'],
+            description=request.json['description'],
+            maxNumberOfGuests=request.json['maxNumberOfGuests'],
+            numberOfRooms=request.json['numberOfRooms'],
+            numberOfBathRooms=request.json['numberOfBathRooms']
         )
         db.session.add(new_place)
         db.session.commit()
@@ -27,27 +32,20 @@ class PlaceResource(Resource):
         return place_schema.dump(place)
 
     def put(self, post_id):
-    	place = Place.query.get_or_404(place_id)
-    	place.title = request.json['title']
-    	place.address = request.json['address']
-    	place.price = request.json['price']
-
-
-    def patch(self, place_id):
         place = Place.query.get_or_404(place_id)
+    	name=request.json['name'],
+        location=request.json['location'],
+        price=request.json['price'],
+        type=request.json['type'],
+        description=request.json['description'],
+        maxNumberOfGuests=request.json['maxNumberOfGuests'],
+        numberOfRooms=request.json['numberOfRooms'],
+        numberOfBathRooms=request.json['numberOfBathRooms']
 
-        if 'title' in request.json:
-            place.title = request.json['title']
-        if 'address' in request.json:
-            place.address = request.json['address']
-        if 'price' in request.json['price']
-        	place.price = request.json['price']
-
-        db.session.commit()
-        return place_schema.dump(place)
 
     def delete(self, place_id):
         place = Place.query.get_or_404(place_id)
         db.session.delete(place)
         db.session.commit()
         return '', 204
+
