@@ -8,7 +8,7 @@ class RentListResource(Resource):
         rents = Rent.query.all()
         return rents_schema.dump(rents)
 
-    def rent(self):
+    def post(self):
         new_rent = Rent(
             checkinDate=request.json['checkinDate'],
             checkoutDate=request.json['checkoutDate'],
