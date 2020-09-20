@@ -369,11 +369,13 @@ export default class User extends Component {
     });
 
     const formData = new FormData();
-    formData.append(
-      "image",
-      this.state.updatedPlace.image,
-      `image_${this.state.updatedPlace.name}`
-    );
+    if (this.state.updatedPlace.image) {
+      formData.append(
+        "image",
+        this.state.updatedPlace.image,
+        `image_${this.state.updatedPlace.name}`
+      );
+    }
     formData.append("name", this.state.updatedPlace.name);
     formData.append("description", this.state.updatedPlace.description);
     formData.append("price", this.state.updatedPlace.price);

@@ -8,7 +8,7 @@ class RentListResource(Resource):
         rents = Rent.query.all()
         return rents_schema.dump(rents)
 
-    def rent(self):
+    def post(self):
         new_rent = Rent(
             checkinDate=request.json['checkinDate'],
             checkoutDate=request.json['checkoutDate'],
@@ -19,22 +19,24 @@ class RentListResource(Resource):
         return rent_schema.dump(new_rent)
 
 class RentResource(Resource):
-	def get(self, rent_id):
+    def get(self, rent_id):
         rent = Rent.query.get_or_404(rent_id)
         return rent_schema.dump(rent)
-
-    def patch(self, rent_id):
+    
+    def put(self, rent_id):
         rent = Rent.query.get_or_404(rent_id)
 
         if 'checkinDate' in request.json:
-            rent.user_id = request.json['checkinDate']
+            rent.checkinDate = request.json['checkinDate']
         if 'checkoutDate' in request.json:
-            rent.place_id = request.json['checkoutDate']
+            rent.checkoutDate = request.json['checkoutDate']
 
         db.session.commit()
         return rent_schema.dump(rent)
 
-    def delete(self, rent_id):
+
+
+     def delete(self, rent_id):
         rent = Rent.query.get_or_404(rent_id)
         db.session.delete(rent)
         db.session.commit()
