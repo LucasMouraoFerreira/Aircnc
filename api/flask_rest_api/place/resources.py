@@ -33,14 +33,33 @@ class PlaceResource(Resource):
 
     def put(self, post_id):
         place = Place.query.get_or_404(place_id)
-        name=request.json['name'],
-        location=request.json['location'],
-        price=request.json['price'],
-        type=request.json['type'],
-        description=request.json['description'],
-        maxNumberOfGuests=request.json['maxNumberOfGuests'],
-        numberOfRooms=request.json['numberOfRooms'],
-        numberOfBathRooms=request.json['numberOfBathRooms']
+        
+        if 'name' in request.json:
+            place.name = request.json['name']
+
+        if 'location' in request.json:
+            place.location=request.json['location']
+        
+        if 'price' in request.json:
+            place.price=request.json['price']
+
+        if 'type' in request.json:
+            place.type=request.json['type']
+
+        if 'description' in request.json:
+            place.description=request.json['description']
+
+        if 'maxNumberOfGuests' in request.json:
+            place.maxNumberOfGuests=request.json['maxNumberOfGuests']
+
+        if 'numberOfRooms' in request.json:
+            place.numberOfRooms=request.json['numberOfRooms']
+
+        if 'numberOfBathRooms' in request.json:
+            place.numberOfBathRooms=request.json['numberOfBathRooms']
+            
+        db.session.commit()
+        return place_schema.dump(place)
 
 
     def delete(self, place_id):
