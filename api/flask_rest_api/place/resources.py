@@ -25,7 +25,7 @@ class PlaceListResource(Resource):
 
 
 class PlaceResource(Resource):
-	
+
 
     def get(self, post_id):
         place = Place.query.get_or_404(place_id)
@@ -33,7 +33,7 @@ class PlaceResource(Resource):
 
     def put(self, post_id):
         place = Place.query.get_or_404(place_id)
-    	name=request.json['name'],
+        name=request.json['name'],
         location=request.json['location'],
         price=request.json['price'],
         type=request.json['type'],
