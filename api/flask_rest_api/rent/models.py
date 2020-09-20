@@ -1,14 +1,14 @@
 from flask_rest_api import db, ma
 
 class Rent(db.Model):
-	__tablename__:"rents"
+    __tablename__:"rents"
 
-	id = db.Column(db.Integer, primary_key=True)
-	checkinDate=db.Column(db.String(10))
-	checkoutDate=db.Column(db.String(10))
-	finalPrice=db.Column(db.Float) 
+    id = db.Column(db.Integer, primary_key=True)
+    checkinDate=db.Column(db.String(10))
+    checkoutDate=db.Column(db.String(10))
+    finalPrice=db.Column(db.Float) 
 
-	def __repr__(self):
+    def __repr__(self):
         return '<Rent %s>' % self.Rent.id
 
 class RentSchema(ma.Schema):
