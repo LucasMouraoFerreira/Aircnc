@@ -23,7 +23,7 @@ class RentResource(Resource):
         rent = Rent.query.get_or_404(rent_id)
         return rent_schema.dump(rent)
 
-    def patch(self, rent_id):
+    def put(self, rent_id):
         rent = Rent.query.get_or_404(rent_id)
 
         if 'checkinDate' in request.json:
